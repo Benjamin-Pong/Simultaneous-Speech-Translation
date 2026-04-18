@@ -1,0 +1,8 @@
+type: "simulstream.server.speech_processors.dynamic_sliding_window.DynamicSlidingWindow"
+hf_model_name: "facebook/hf-seamless-m4t-medium"
+seamless_version: 1
+speech_chunk_size: 6.0  # seconds
+detokenizer_type: "hf"
+window_len: 12
+lang_tag_template: "__{}__"
+matching_threshold: 0.1
