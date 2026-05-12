@@ -8,7 +8,7 @@ benpongmca@gmail.com
 ## Method
 - **Base model**: SeamlessM4T-medium (facebook/hf-seamless-m4t-medium) with schedulers for dynamic masking
 - **Training**: LoRA finetuning 
-- **Inference**: Sliding window retranslation
+- **Inference**: Sliding window retranslation, Adapted StreamAtt
 
 
 ## Files
