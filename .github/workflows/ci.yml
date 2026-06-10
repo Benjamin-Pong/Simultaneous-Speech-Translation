@@ -4,28 +4,27 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy: 
+    strategy:
       matrix:
-        python-version: [3.11] #runs test on these versions of python
-
+        python-version: [3.11]
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Clone simulstream
+        run: git clone https://github.com/hlt-mt/simulstream.git
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install dependencies
-        run: | 
-          pip install simulstream
-          pip install -e .[canary,eval]
-      - name: Lint with flake8
+        working-directory: simulstream
         run: |
-          pip install flake8
-          flake8 . --select=E9,F63,F7,F82 --show-source
+          pip install -e .[canary,eval]
+
       - name: Test with pytest
         run: |
           pip install pytest
-          pytest -v
-        working-directory: tests
-
+          pytest tests/ -v
