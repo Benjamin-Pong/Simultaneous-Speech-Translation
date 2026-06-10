@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         working-directory: simulstream
         run: |
-          pip install -e . [eval]
+          pip install -e .[eval]
 
       - name: Test with pytest
         run: |
