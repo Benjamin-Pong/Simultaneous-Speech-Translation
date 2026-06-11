@@ -23,6 +23,7 @@ jobs:
         working-directory: simulstream
         run: |
           pip install -e .[eval]
+          pip install datasets transformers torch peft huggingface_hub
 
       - name: Test with pytest
         run: |
