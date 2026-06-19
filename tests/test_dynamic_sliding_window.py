@@ -4,7 +4,7 @@ from dynamic_sliding_window import DynamicSlidingWindow
 Test suite to test the functionality of DynamicSlidingWindow inference regime
 '''
 
-@pytest.mark.parameterize("lang", ["eng", "jpn", "fra"])
+@pytest.mark.parametrize("lang", ["eng", "jpn", "fra"])
 def test_unsupported_languages(lang):
     '''
     test that unsupported languages raise error
