@@ -1,5 +1,5 @@
 import pytest
-from dynamic_sliding_window import DynamicSlidingWindow
+from simulstream.server.speech_processors.dynamic_sliding_window import DynamicSlidingWindow
 '''
 Test suite to test the functionality of DynamicSlidingWindow inference regime
 '''
