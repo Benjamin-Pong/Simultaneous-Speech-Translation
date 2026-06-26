@@ -35,3 +35,17 @@ jobs:
         run: |
           pip install pytest
           pytest tests/ -v
+
+      - name: Test Docker build
+        run: |
+          docker build \
+          -- build_context simulstream_base=./simulstream\
+          -t benjamin_sst \
+
+      - name: Test Container Starts 
+        run: |
+          docker run -d -p 8080:8080 --name test_container benjamin_sst
+            sleep 60
+            docker ps | grep test_container
+            docker stop test_container
+      
