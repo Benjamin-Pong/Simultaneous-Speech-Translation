@@ -1,0 +1,51 @@
+name: Python Package
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone simulstream
+        run: git clone https://github.com/hlt-mt/simulstream.git
+      
+      - name: To run test_dynamic_sliding_window.py, Copy dynamic_sliding_window.py into a dummy simulstream directory to mimic actual simulstream integration
+        run: |
+          cp dynamic_sliding_window.py simulstream/simulstream/server/speech_processors/
+          cp model_sm4t.py simulstream/simulstream/server/speech_processors/
+        
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        working-directory: simulstream
+        run: |
+          pip install -e .[eval]
+          pip install datasets transformers torch peft huggingface_hub
+
+      - name: Test with pytest
+        run: |
+          pip install pytest
+          pytest tests/ -v
+
+      - name: Test Docker build
+        run: |
+          docker build \
+          --build-context simulstream_base=./simulstream \
+          -t benjamin_sst \
+          .
+
+      - name: Test Container Starts 
+        run: |
+          docker run -d -p 8080:8080 --name test_container benjamin_sst
+            sleep 60
+            docker ps | grep test_container
+            docker stop test_container
