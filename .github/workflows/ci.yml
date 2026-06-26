@@ -39,7 +39,7 @@ jobs:
       - name: Test Docker build
         run: |
           docker build \
-          -- build_context simulstream_base=./simulstream\
+          --build-context simulstream_base=./simulstream\
           -t benjamin_sst \
           .
 
